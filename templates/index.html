@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+
+{% block title %} {{ super() }} | Home {% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href= "{{ url_for('index') }}" > Aqueous Zen0 </a>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+          <li class='active'><a href= "{{url_for('index')}} "><span class='glyphicon glyphicon-home'></span></a></li>
+          <li><a href="{{ url_for('nmap_home') }}">NMAP</a></li>
+
+        </ul>
+      </div>
+</nav>
+
+
+  <div class = 'jumbotron text-center' style='padding:400px; margin-bottom:0px;'>
+    <h1> Aqueous Zen0 </h1>
+  </div>
+
+
+{% endblock %}
+
+{% block scripts%} {% endblock %}

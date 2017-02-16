@@ -1,0 +1,68 @@
+simple_app.py:4:12: E401 multiple imports on one line
+simple_app.py:8:1: E302 expected 2 blank lines, found 1
+simple_app.py:10:1: W191 indentation contains tabs
+simple_app.py:11:1: W191 indentation contains tabs
+simple_app.py:13:1: E302 expected 2 blank lines, found 1
+simple_app.py:15:15: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:15:17: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:16:1: W191 indentation contains tabs
+simple_app.py:17:1: W191 indentation contains tabs
+simple_app.py:22:26: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:22:28: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:22:47: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:22:49: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:23:1: W191 indentation contains tabs
+simple_app.py:23:25: E231 missing whitespace after ':'
+simple_app.py:24:1: W191 indentation contains tabs
+simple_app.py:29:13: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:29:15: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:29:23: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:29:25: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:30:1: E101 indentation contains mixed spaces and tabs
+simple_app.py:30:3: E111 indentation is not a multiple of four
+simple_app.py:31:3: E111 indentation is not a multiple of four
+simple_app.py:33:1: E302 expected 2 blank lines, found 1
+simple_app.py:35:18: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:35:20: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:35:28: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:35:30: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:36:3: E111 indentation is not a multiple of four
+simple_app.py:37:3: E111 indentation is not a multiple of four
+simple_app.py:39:1: E302 expected 2 blank lines, found 1
+simple_app.py:41:16: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:41:18: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:41:26: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:41:28: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:42:3: E111 indentation is not a multiple of four
+simple_app.py:43:3: E111 indentation is not a multiple of four
+simple_app.py:45:1: E302 expected 2 blank lines, found 1
+simple_app.py:47:21: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:47:23: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:47:44: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:47:46: E251 unexpected spaces around keyword / parameter equals
+simple_app.py:48:3: E111 indentation is not a multiple of four
+simple_app.py:49:3: E111 indentation is not a multiple of four
+simple_app.py:50:3: E101 indentation contains mixed spaces and tabs
+simple_app.py:50:3: W191 indentation contains tabs
+simple_app.py:50:4: E128 continuation line under-indented for visual indent
+simple_app.py:51:3: E111 indentation is not a multiple of four
+simple_app.py:54:1: E302 expected 2 blank lines, found 0
+simple_app.py:62:1: E101 indentation contains mixed spaces and tabs
+simple_app.py:62:1: W191 indentation contains tabs
+simple_app.py:63:1: W191 indentation contains tabs
+simple_app.py:64:1: W191 indentation contains tabs
+simple_app.py:64:31: E225 missing whitespace around operator
+simple_app.py:64:34: E225 missing whitespace around operator
+simple_app.py:65:1: W191 indentation contains tabs
+simple_app.py:65:17: E231 missing whitespace after ':'
+simple_app.py:65:25: E231 missing whitespace after ':'
+simple_app.py:66:1: W191 indentation contains tabs
+simple_app.py:68:80: E501 line too long (95 > 79 characters)
+simple_app.py:69:1: E302 expected 2 blank lines, found 0
+simple_app.py:72:1: W191 indentation contains tabs
+simple_app.py:73:1: W191 indentation contains tabs
+simple_app.py:73:16: E231 missing whitespace after ':'
+simple_app.py:74:1: W191 indentation contains tabs
+simple_app.py:79:1: E303 too many blank lines (4)
+simple_app.py:80:1: W191 indentation contains tabs
+simple_app.py:82:1: W391 blank line at end of file

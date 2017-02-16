@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <title>
+{% block title %} Aqueous Zen0 {% endblock %}</title>
+  <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel = 'stylesheet' href = '/static/style.css'>
+  </head>
+<body>
+<script>
+	var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+{% block content %} {% endblock %}
+<footer class = 'footer navbar-inverse' style='margin-bottom:0px;'>
+	<div class = 'container-fluid'>
+		<h6 class = 'text-center'>Powered by Kuraiel</h6>
+	</div>
+</footer>
+
+{% block scripts %}
+{% endblock %}
+  </body>
+</html>

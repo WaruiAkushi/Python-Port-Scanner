@@ -1,0 +1,124 @@
+{% extends 'template.html' %}
+
+{% block title %} {{ super() }} | Nmap {% endblock %}
+  <!-- Latest compiled and minified CSS -->
+
+{% block content %}
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href=" {{ url_for('index') }} ">Aqueous Zen0</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href={{ url_for('nmap_home') }} >Scan</a></li>
+        </ul>
+      </div>
+</nav>
+
+  <div class = "jumbotron">
+    <h1 class = 'text-center'>NMAP PORT SCAN</h1>
+  </div>
+
+  <div class = 'container-fluid' id = 'main_container'>
+    	<!-- <h2 class = 'text-center'> {{ scan }} </h2> -->
+    	{% for host in nm.all_hosts()|sort %}
+    	<div class = 'container-fluid'>
+        	<div class = 'row'>
+
+            	<div id = 'host_info' class = 'well col-xs-5 col-sm-6 col-md-6 col-lg-3'>
+            			<h3 class = 'text-center'> Host Information </h3>
+            			<hr>
+                        {% if nm[host].state() == 'up' %}
+                            <strong class = 'btn' id = "opts" data-toggle = 'collapse' title = 'Options for {{ host }}' data-target = "#options" >
+                		    Host: {{ host }} ( {{ nm[host].hostname() }} )
+                                <div id = 'options' class = 'collapse'>
+                                    <ul class = 'nav'>
+                                        <li><a href = '#' id = 'whois'>WHOIS</a></li>
+                                        <li><a href = '#' id = 'os_fingerprint'>OS Fingerprint</a></li>
+                                        <li><a href = '#' id = 'ports'>Ports</a></li>
+                                    </ul>
+                                </div>
+                            </strong>
+                        {% else %}
+                        Host: {{ host }} ( {{ nm[host].hostname() }} )
+                        {% endif %}
+            		    <hr>
+            			State: {{ nm[host].state() }}
+            			<hr>
+            		{% for proto in nm[host].all_protocols() %}
+            				Protocol: {{ proto }}
+            				<hr>
+            		</div>
+
+        			{% set lport = nm[host][proto].keys() %}
+        			{% set i = 1 %}
+
+            			<div id = 'port_info' class = 'well col-xs-6 col-sm-5 col-md-6 col-lg-7
+                            col-xs-offset-1 col-sm-offset-1 col-lg-offset-1' >
+            				<h2 class = 'text-center' id = 'info_title'> Port Information </h2>
+            				<hr>
+                            <div id = 'scan_info'>
+            				{% for port in lport|sort %}
+            					[{{ i }}]  Port: {{ port }}
+                                <br>
+                                State: {{ nm[host][proto][port]['state'] }}
+                                <br>
+                                Service: {{ nm[host][proto][port]['name'] }}
+            				    <hr>
+
+            				{% set i = i+1 %}
+
+    			    {% endfor %}
+
+    		{% endfor %}
+                </div>
+            </div>
+            </div>
+        </div>
+        <br>
+    	{% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    var report = '';
+    function node (host, service, port, state, protocol, report) {
+        this.host_name = host;
+        this.service_name = service;
+        this.port_name = port;
+        this.state_status = state;
+        this.protocol_name = protocol;
+        this.report = function () {
+            return 'Host: ' + this.host_name + '<br>' +
+                   'State: ' + this.state_status + '<br>' +
+                   'Protocol: ' + this.protocol_name + '<br>';
+
+        }
+    };
+    var result = '{{ w.text|tojson}}';
+    $(document).ready(function() {
+        //$('#opts').popover();
+        //user if statement to trigger event based on requested function
+
+            $("#whois").bind('click', function() {
+                $('#info_title').text('WHOIS Information');
+                $("#scan_info").text(result);
+            });
+            $('#ports').bind('click', function() {
+                $('#info_title').text('Port Information');
+                $('#scan_info').text(/*add port data*/ 'TBD');
+            });
+            $('#os_fingerprint').bind('click', function() {
+                $('#info_title').text("OS Fingerprint");
+                $('#scan_info').text('TBD');//add fingerprint data
+            });
+
+            $("[href = '#']").click(function(e) {
+                e.preventDefault();
+            });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+click==6.6
+Flask==0.11.1
+future==0.15.2
+gunicorn==19.6.0
+itsdangerous==0.24
+Jinja2==2.8
+MarkupSafe==0.23
+python-nmap==0.6.1
+Werkzeug==0.11.11
+whois==0.7

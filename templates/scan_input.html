@@ -1,0 +1,215 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href= {{ url_for('index') }} > Aqueous Zen0 </a>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href={{ url_for('index') }}><span class='glyphicon glyphicon-home'></span></a></li>
+        </ul>
+      </div>
+
+      <hr style='margin-bottom:5px; margin-top:0px;'>
+
+      <div class = 'container-fluid'>
+    <form class='form-inline'>
+      <div class='form-group'>
+        <label for='ip' class='sr-only'></label>
+        <input id='ip' class='form-control' placeholder="IP address" type='text' size='25'>
+        </div>
+      <div class='form-group'>
+        <label for='cidr' class='sr-only'></label>
+        <input id='cidr' class='form-control' placeholder="CIDR" type='text' size='25'>
+        </div>
+        <div class='form-group'>
+          <label for='ports' class='sr-only'></label>
+          <input id='ports' class='form-control' placeholder="Port Range [ex: 80-443]" type='text' size='25'>
+        </div>
+        <div class='form-group'>
+          <label for='flags' class='sr-only'></label>
+          <input id='flags' class='form-control' placeholder="Flags [ex: -O -v]" type='text' size='25'>
+        </div>
+        <div class='btn-group btn-group-md pull-right'>
+          <button type='button' name='submission' class='btn btn-success' onclick='submit_form()'> Submit </button>
+          <button type='button' name='reset' class='btn btn-danger'> Reset </button>
+          <button type='button' name='help' class='btn btn-info'> Help </button>
+        </div>
+    </form>
+  </div>
+</nav>
+
+<!-- Add introductory text -->
+<div class='row' style='margin-top:90px;'>
+  <div class='container col-xs-3 col-sm-3 col-md-3 col-lg-3 pull-left'>
+    <h3 class='text-center'>What is Aqueous Zen0?</h3>
+    <hr>
+    <p>Welcome to Aqueous Zen0 (zenzero). At it's root, Aqueous Zen0 is a basic platform for conducting non-intrusive port scans and whois lookups against a user defined network address or IP address.
+    </p>
+  </div>
+  <div class='container col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+    <h3 class='text-center'> How do I use Aqueous Zen0? </h3>
+    <hr>
+    <p> Aqueous Zen0 is simple to use. In fact, anyone with knowledge of using NMAP or WHOIS through their command line should feel at ease. While the delivery may look and feel somewhat different, the concept and interactions are intended to feel and behave in the same manner. For those that are unfamiliar with using NMAP or WHOIS, the process is simple. Above you can see a group of input bars. Each bar contains a hint as to what you should be inputting.
+      <ul>
+        <dd>The first bar is for the intended IP address.</dd>
+        <dd>The second is for the Class Inter-domain Routing number or CIDR.</dd>
+        <dd>Next up is the intended port range.</dd>
+        <dd>Lastly, are any desired flags to be run at the time of the scan.</dd>
+      </ul>
+    If it isn't clear what all of this means, don't worry there is more information to right of this block.
+    </p>
+  </div>
+  <div class='container col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+    <h3 class='text-center'> Ports, Cidr, and more </h3>
+    <hr>
+    <p> Ports are the communication points associated with a specific service. For example, when you attempt to connect to a website that utilizes the hypertext transfer protocol (HTTP), you are attempting to communicate over port 80. When attempting to check for specific port usage on a network device, it is important that you know what these ports are. Some common ports are as follow:
+      <ul>
+        <dd> Port 21  | File Transfer Protocol (FTP)</dd>
+        <dd> Port 23  | Secure Shell (SSH) </dd>
+        <dd> Port 80  | HTTP</dd>
+        <dd> Port 443 | Hypertext Transfer Protocol Secure (HTTPS)</dd>
+      </ul>
+
+    CIDR notation is a comman method used to identify the range of a network. An IPV4 address is comprised of 32 bits split into four eight-bit octets. So when defining a cidr, you are defining how of these 32 bits will already be activated when conducting a scan. A short hand technique for remember cidr values is to substract the cidr value (0-32) that you want to use from 32. That the result and calculate it as an exponent with a base power of two. So if 30 is the identified cidr notataion the number of addressed that would be scanned are two to the power of two. A total of 4 addresses will be scanned. This looks like 192.168.0 - 192.168.0.4. Never attempt to conduct a scan using a cidr notation of 0, this will look for every possible IP configuration (0.0.0.0 - 255.255.255.255). Here is a quick reference of cidr values:
+      <ul>
+        <dd>192.168.0.1/32 | Scans 1 address (2<sup>0</sup>)</dd>
+        <dd>192.168.0.1/24 | Scans 256 addresses (2<sup>8</sup>)</dd>
+        <dd>192.168.0.1/16 | Scans 65,536 addresses (2<sup>16</sup>)</dd>
+        <dd>192.168.0.1/8  | Scans 16,777,216 addresses (2<sup>24</sup>)</dd>
+      </ul>
+
+      NMAP has a wide variety of flags that can used to support a laundry list of different capabilities. The flags used will dictate the actions performed when the scan is executed. Below is documentation on some of the NMAP capabilities:
+      <hr>
+      <pre>
+HOST DISCOVERY:
+  -sL: List Scan - simply list targets to scan
+  -sn: Ping Scan - disable port scan
+  -Pn: Treat all hosts as online -- skip host discovery
+  -PS/PA/PU/PY[portlist]: TCP SYN/ACK, UDP or SCTP discovery to given ports
+  -PE/PP/PM: ICMP echo, timestamp, and netmask request discovery probes
+  -PO[protocol list]: IP Protocol Ping
+  -n/-R: Never do DNS resolution/Always resolve [default: sometimes]
+  --dns-servers <serv1[,serv2],...>: Specify custom DNS servers
+  --system-dns: Use OS's DNS resolver
+  --traceroute: Trace hop path to each host
+
+SCAN TECHNIQUES:
+  -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
+  -sU: UDP Scan
+  -sN/sF/sX: TCP Null, FIN, and Xmas scans
+  --scanflags <flags>: Customize TCP scan flags
+  -sI <zombie host[:probeport]>: Idle scan
+  -sY/sZ: SCTP INIT/COOKIE-ECHO scans
+  -sO: IP protocol scan
+  -b <FTP relay host>: FTP bounce scan
+
+PORT SPECIFICATION AND SCAN ORDER:
+  -p <port ranges>: Only scan specified ports
+    Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
+  --exclude-ports <port ranges>: Exclude the specified ports from scanning
+  -F: Fast mode - Scan fewer ports than the default scan
+  -r: Scan ports consecutively - don't randomize
+  --top-ports <number>: Scan <number> most common ports
+  --port-ratio <ratio>: Scan ports more common than <ratio>
+
+SERVICE/VERSION DETECTION:
+  -sV: Probe open ports to determine service/version info
+  --version-intensity <level>: Set from 0 (light) to 9 (try all probes)
+  --version-light: Limit to most likely probes (intensity 2)
+  --version-all: Try every single probe (intensity 9)
+  --version-trace: Show detailed version scan activity (for debugging)
+
+SCRIPT SCAN:
+  -sC: equivalent to --script=default
+  --script=<Lua scripts>: <Lua scripts> is a comma separated list of
+           directories, script-files or script-categories
+  --script-args=<n1=v1,[n2=v2,...]>: provide arguments to scripts
+  --script-args-file=filename: provide NSE script args in a file
+  --script-trace: Show all data sent and received
+  --script-updatedb: Update the script database.
+  --script-help=<Lua scripts>: Show help about scripts.
+           <Lua scripts> is a comma-separated list of script-files or
+           script-categories.
+
+OS DETECTION:
+  -O: Enable OS detection
+  --osscan-limit: Limit OS detection to promising targets
+  --osscan-guess: Guess OS more aggressively
+
+TIMING AND PERFORMANCE:
+  Options which take <time> are in seconds, or append 'ms' (milliseconds),
+  's' (seconds), 'm' (minutes), or 'h' (hours) to the value (e.g. 30m).
+  -T<0-5>: Set timing template (higher is faster)
+  --min-hostgroup/max-hostgroup <size>: Parallel host scan group sizes
+  --min-parallelism/max-parallelism <numprobes>: Probe parallelization
+  --min-rtt-timeout/max-rtt-timeout/initial-rtt-timeout <time>: Specifies
+      probe round trip time.
+  --max-retries <tries>: Caps number of port scan probe retransmissions.
+  --host-timeout <time>: Give up on target after this long
+  --scan-delay/--max-scan-delay <time>: Adjust delay between probes
+  --min-rate <number>: Send packets no slower than <number> per second
+  --max-rate <number>: Send packets no faster than <number> per second
+
+FIREWALL/IDS EVASION AND SPOOFING:
+  -f; --mtu <val>: fragment packets (optionally w/given MTU)
+  -D <decoy1,decoy2[,ME],...>: Cloak a scan with decoys
+  -S <IP_Address>: Spoof source address
+  -e <iface>: Use specified interface
+  -g/--source-port <portnum>: Use given port number
+  --proxies <url1,[url2],...>: Relay connections through HTTP/SOCKS4 proxies
+  --data <hex string>: Append a custom payload to sent packets
+  --data-string <string>: Append a custom ASCII string to sent packets
+  --data-length <num>: Append random data to sent packets
+  --ip-options <options>: Send packets with specified ip options
+  --ttl <val>: Set IP time-to-live field
+  --spoof-mac <mac address/prefix/vendor name>: Spoof your MAC address
+  --badsum: Send packets with a bogus TCP/UDP/SCTP checksum
+
+OUTPUT:
+  -oN/-oX/-oS/-oG <file>: Output scan in normal, XML, s|<rIpt kIddi3,
+     and Grepable format, respectively, to the given filename.
+  -oA <basename>: Output in the three major formats at once
+  -v: Increase verbosity level (use -vv or more for greater effect)
+  -d: Increase debugging level (use -dd or more for greater effect)
+  --reason: Display the reason a port is in a particular state
+  --open: Only show open (or possibly open) ports
+  --packet-trace: Show all packets sent and received
+  --iflist: Print host interfaces and routes (for debugging)
+  --append-output: Append to rather than clobber specified output files
+  --resume <filename>: Resume an aborted scan
+  --stylesheet <path/URL>: XSL stylesheet to transform XML output to HTML
+  --webxml: Reference stylesheet from Nmap.Org for more portable XML
+  --no-stylesheet: Prevent associating of XSL stylesheet w/XML output
+
+MISC:
+  -6: Enable IPv6 scanning
+  -A: Enable OS detection, version detection, script scanning, and traceroute
+  --datadir <dirname>: Specify custom Nmap data file location
+  --send-eth/--send-ip: Send using raw ethernet frames or IP packets
+  --privileged: Assume that the user is fully privileged
+  --unprivileged: Assume the user lacks raw socket privileges
+  -V: Print version number
+  -h: Print this help summary page.
+
+EXAMPLES:
+  nmap -v -A scanme.nmap.org
+  nmap -v -sn 192.168.0.0/16 10.0.0.0/8
+  nmap -v -iR 10000 -Pn -p 80
+      </pre>
+    </p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type='text/javascript'>
+//add button actions
+  function submit_form() {
+    window.location.replace( $SCRIPT_ROOT + '/user_scan_results/' );
+  }
+ </script>
+{% endblock %}
